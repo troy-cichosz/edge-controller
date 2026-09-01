@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Nodes - Edge Controller{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Nodes</h1>
+        <p class="muted">Registered edge nodes and their services</p>
+    </div>
+</div>
+
+<div class="node-grid">
+
+{% for node in nodes %}
+
+<a class="node-card" href="/nodes/{{ node.node_id }}">
+
+    <div class="node-card-header">
+        <h3>{{ node.hostname }}</h3>
+
+        <span class="status status-{{ node.status }}">
+            {{ node.status }}
+        </span>
+    </div>
+
+    <div class="node-id">
+        {{ node.node_id }}
+    </div>
+
+    <div class="service-list">
+
+        {% for service in node.services %}
+
+        <div class="service-row">
+            <span class="service-name">
+                {{ service.name }}
+            </span>
+
+            <span class="status status-{{ service.status }}">
+                {{ service.status }}
+            </span>
+        </div>
+
+        {% else %}
+
+        <div class="muted">
+            No services registered
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</a>
+
+{% else %}
+
+<div class="empty-state">
+    No nodes registered.
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

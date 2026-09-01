@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}{{ node.hostname }} - Edge Controller{% endblock %}
+
+{% block content %}
+
+<div class="breadcrumb">
+    <a href="/nodes">Nodes</a>
+    <span>/</span>
+    <span>{{ node.hostname }}</span>
+</div>
+
+<div class="page-header">
+    <div>
+        <h1>{{ node.hostname }}</h1>
+        <p class="muted">{{ node.node_id }}</p>
+    </div>
+
+    <span class="status status-{{ node.status }}">
+        {{ node.status }}
+    </span>
+</div>
+
+<section class="section">
+
+    <div class="section-header">
+        <h2>Services</h2>
+    </div>
+
+    {% if node.services %}
+
+    <div class="service-grid">
+
+        {% for service in node.services %}
+
+        <a
+            class="service-card"
+            href="/nodes/{{ node.node_id }}/services/{{ service.service_id }}"
+        >
+
+            <div class="service-card-header">
+
+                <h3>{{ service.name }}</h3>
+
+                <span class="status status-{{ service.status }}">
+                    {{ service.status }}
+                </span>
+
+            </div>
+
+            <div class="service-details">
+
+                <div>
+                    <span class="detail-label">Service ID</span>
+                    <span>{{ service.service_id }}</span>
+                </div>
+
+                <div>
+                    <span class="detail-label">Version</span>
+                    <span>{{ service.version or "unknown" }}</span>
+                </div>
+
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        No services registered for this node.
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

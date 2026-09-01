@@ -1,0 +1,391 @@
+{% extends "base.html" %}
+
+{% block title %}{{ service.name }} - Edge Controller{% endblock %}
+
+{% block content %}
+
+<div class="breadcrumb">
+    <a href="/nodes">Nodes</a>
+    <span>/</span>
+    <a href="/nodes/{{ node.node_id }}">{{ node.hostname }}</a>
+    <span>/</span>
+    <span>{{ service.name }}</span>
+</div>
+
+<div class="page-header">
+
+    <div>
+        <h1>{{ service.name }}</h1>
+        <p class="muted">
+            {{ node.hostname }} / {{ service.service_id }}
+        </p>
+    </div>
+
+    <span class="status status-{{ service.status }}">
+        {{ service.status }}
+    </span>
+
+</div>
+
+<section class="section">
+
+    <div class="info-card">
+
+        <div class="info-row">
+            <span class="detail-label">Node</span>
+            <span>{{ node.node_id }}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="detail-label">Service ID</span>
+            <span>{{ service.service_id }}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="detail-label">Version</span>
+            <span>{{ service.version or "unknown" }}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="detail-label">Status</span>
+            <span>{{ service.status }}</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+{% if service.service_id == "edge-audio" %}
+
+<section class="section">
+
+    <div class="section-header">
+        <h2>Calibration</h2>
+    </div>
+
+    <div class="info-card">
+
+        <div class="calibration-form">
+
+            <div>
+                <label for="calibration-duration">
+                    <span class="detail-label">Duration</span>
+                    <input
+                        id="calibration-duration"
+                        type="number"
+                        min="1"
+                        max="60"
+                        value="10"
+                    >
+                    <span class="muted">seconds</span>
+                </div>
+
+                <button
+                    id="calibration-button"
+                    class="button primary"
+                    type="button"
+                    onclick="startCalibration()"
+                >
+                    Start Calibration
+                </button>
+
+            </div>
+
+            <div
+                id="calibration-status"
+                class="calibration-status muted"
+            >
+                No calibration running.
+            </div>
+
+            <div
+                id="calibration-result"
+                class="calibration-result"
+                style="display: none;"
+            ></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+<script>
+
+let calibrationPollTimer = null;
+
+async function startCalibration() {
+
+    const button = document.getElementById("calibration-button");
+    const durationInput = document.getElementById("calibration-duration");
+    const status = document.getElementById("calibration-status");
+    const result = document.getElementById("calibration-result");
+
+    const duration = Number(durationInput.value);
+
+    if (!Number.isInteger(duration) || duration < 1 || duration > 60) {
+        status.textContent = "Duration must be between 1 and 60 seconds.";
+        status.className = "calibration-status error";
+        return;
+    }
+
+    if (calibrationPollTimer) {
+        clearTimeout(calibrationPollTimer);
+        calibrationPollTimer = null;
+    }
+
+    button.disabled = true;
+    result.style.display = "none";
+    result.innerHTML = "";
+
+    status.textContent = "Creating calibration job...";
+    status.className = "calibration-status";
+
+    try {
+
+        const response = await fetch(
+            "/api/v1/nodes/{{ node.node_id }}/services/{{ service.service_id }}/calibration",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    duration_seconds: duration
+                })
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `Calibration request failed (${response.status})`
+            );
+        }
+
+        const job = await response.json();
+
+        status.textContent = `Calibration ${job.status}.`;
+        status.className = "calibration-status";
+
+        pollCalibration(job.id);
+
+    } catch (error) {
+
+        status.textContent = error.message;
+        status.className = "calibration-status error";
+
+        button.disabled = false;
+    }
+}
+
+
+async function pollCalibration(calibrationId) {
+
+    const button = document.getElementById("calibration-button");
+    const status = document.getElementById("calibration-status");
+
+    try {
+
+        const response = await fetch(
+            "/api/v1/nodes/{{ node.node_id }}/services/{{ service.service_id }}/calibration/" +
+            calibrationId
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `Unable to retrieve calibration (${response.status})`
+            );
+        }
+
+        const job = await response.json();
+
+        status.textContent =
+            `Calibration ${job.status}.`;
+
+        status.className =
+            "calibration-status calibration-" + job.status;
+
+        if (job.status === "complete") {
+
+            showCalibrationResult(job);
+            button.disabled = false;
+            return;
+        }
+
+        if (job.status === "failed") {
+
+            showCalibrationError(job);
+            button.disabled = false;
+            return;
+        }
+
+        calibrationPollTimer = setTimeout(
+            () => pollCalibration(calibrationId),
+            1000
+        );
+
+    } catch (error) {
+
+        status.textContent = error.message;
+        status.className = "calibration-status error";
+
+        button.disabled = false;
+    }
+}
+
+
+function showCalibrationResult(job) {
+
+    const result = document.getElementById("calibration-result");
+
+    let data;
+
+    try {
+        data = JSON.parse(job.result);
+    } catch (error) {
+        result.innerHTML = `
+            <strong>Calibration complete.</strong>
+            <pre>${escapeHtml(job.result || "")}</pre>
+        `;
+        result.style.display = "block";
+        return;
+    }
+
+    let html = `
+        <h3>Calibration Result</h3>
+
+        <div class="service-details">
+
+            <div>
+                <span class="detail-label">Duration</span>
+                <span>${data.duration_seconds} seconds</span>
+            </div>
+
+            <div>
+                <span class="detail-label">Frames</span>
+                <span>${data.frames}</span>
+            </div>
+
+            <div>
+                <span class="detail-label">Channels</span>
+                <span>${data.channels}</span>
+            </div>
+
+        </div>
+
+        <h3 class="calibration-channel-heading">
+            Channel Measurements
+        </h3>
+    `;
+
+    if (Array.isArray(data.channels_data)) {
+
+        html += `
+            <div class="calibration-channels">
+        `;
+
+        for (const channel of data.channels_data) {
+
+            html += `
+                <div class="calibration-channel">
+
+                    <strong>Channel ${channel.channel}</strong>
+
+                    <div>
+                        <span class="detail-label">Peak</span>
+                        <span>${formatNumber(channel.peak)}</span>
+                    </div>
+
+                    <div>
+                        <span class="detail-label">RMS</span>
+                        <span>${formatNumber(channel.rms)}</span>
+                    </div>
+
+                    <div>
+                        <span class="detail-label">Peak dBFS</span>
+                        <span>${formatNumber(channel.peak_dbfs)}</span>
+                    </div>
+
+                    <div>
+                        <span class="detail-label">RMS dBFS</span>
+                        <span>${formatNumber(channel.rms_dbfs)}</span>
+                    </div>
+
+                    <div>
+                        <span class="detail-label">DC Offset</span>
+                        <span>${formatNumber(channel.dc_offset)}</span>
+                    </div>
+
+                    <div>
+                        <span class="detail-label">Clipping Samples</span>
+                        <span>${channel.clipping_samples}</span>
+                    </div>
+
+                </div>
+            `;
+        }
+
+        html += `
+            </div>
+        `;
+    }
+
+    result.innerHTML = html;
+    result.style.display = "block";
+}
+
+
+function showCalibrationError(job) {
+
+    const result = document.getElementById("calibration-result");
+
+    result.innerHTML = `
+        <h3>Calibration Failed</h3>
+        <p class="error">
+            ${escapeHtml(job.error || "Unknown calibration error")}
+        </p>
+    `;
+
+    result.style.display = "block";
+}
+
+
+function formatNumber(value) {
+
+    if (value === null || value === undefined) {
+        return "unknown";
+    }
+
+    if (value === -Infinity) {
+        return "-∞";
+    }
+
+    if (value === Infinity) {
+        return "∞";
+    }
+
+    if (typeof value !== "number") {
+        return escapeHtml(String(value));
+    }
+
+    return value.toFixed(4);
+}
+
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+</script>
+
+{% endblock %}

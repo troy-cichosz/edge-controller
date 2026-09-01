@@ -1,0 +1,398 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    background: #f4f6f8;
+    color: #1f2933;
+}
+
+.topbar {
+    height: 64px;
+    background: #17202a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+}
+
+.brand {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.topbar nav {
+    display: flex;
+    gap: 24px;
+}
+
+.topbar a {
+    color: #d9e2ec;
+    text-decoration: none;
+}
+
+.topbar a:hover {
+    color: white;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+h1,
+h2,
+h3 {
+    margin-top: 0;
+}
+
+h1 {
+    margin-bottom: 6px;
+}
+
+h2 {
+    margin-bottom: 0;
+}
+
+.muted {
+    color: #697586;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+    max-width: 600px;
+}
+
+.stat-card,
+.info-card,
+.node-card,
+.service-card {
+    background: white;
+    border: 1px solid #d9e2ec;
+    border-radius: 8px;
+}
+
+.stat-card {
+    padding: 22px;
+}
+
+.stat-label {
+    color: #697586;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.section {
+    margin-top: 24px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.node-grid,
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(320px, 1fr)
+    );
+    gap: 20px;
+}
+
+.node-card,
+.service-card {
+    display: block;
+    padding: 22px;
+    text-decoration: none;
+    color: inherit;
+    transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
+}
+
+.node-card:hover,
+.service-card:hover {
+    border-color: #9fb3c8;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.node-card-header,
+.service-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.node-card h3,
+.service-card h3 {
+    margin-bottom: 0;
+}
+
+.node-id {
+    color: #697586;
+    font-family: monospace;
+    font-size: 13px;
+    margin: 10px 0 20px;
+}
+
+.service-list {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 12px;
+}
+
+.service-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 0;
+}
+
+.service-name {
+    font-weight: 500;
+}
+
+.status {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-online {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-unknown,
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-running {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-complete {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-failed {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.service-details {
+    margin-top: 22px;
+    display: grid;
+    gap: 12px;
+}
+
+.detail-label {
+    color: #697586;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.info-card {
+    max-width: 700px;
+    padding: 22px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 14px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.info-row:last-child {
+    border-bottom: 0;
+}
+
+.info-row .detail-label {
+    margin: 0;
+}
+
+.breadcrumb {
+    display: flex;
+    gap: 10px;
+    color: #697586;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.breadcrumb a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.button {
+    display: inline-block;
+    padding: 9px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.button.secondary {
+    border: 1px solid #bcccdc;
+    color: #334e68;
+    background: white;
+}
+
+.empty-state {
+    background: white;
+    border: 1px dashed #bcccdc;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    color: #697586;
+}
+
+@media (max-width: 700px) {
+
+    .container {
+        padding: 20px;
+    }
+
+    .topbar {
+        padding: 0 20px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .node-grid,
+    .service-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+.calibration-form {
+    display: grid;
+    gap: 22px;
+}
+
+.calibration-form input {
+    width: 90px;
+    padding: 9px 10px;
+    border: 1px solid #bcccdc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.button.primary {
+    border: 1px solid #2563eb;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+.button.primary:hover {
+    background: #1d4ed8;
+}
+
+.button.primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.calibration-status {
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: #f4f6f8;
+}
+
+.calibration-pending,
+.calibration-running {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.calibration-complete {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.calibration-failed,
+.calibration-status.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.calibration-result {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 20px;
+}
+
+.calibration-result h3 {
+    margin-bottom: 16px;
+}
+
+.calibration-channel-heading {
+    margin-top: 28px;
+}
+
+.calibration-channels {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(260px, 1fr)
+    );
+    gap: 16px;
+}
+
+.calibration-channel {
+    border: 1px solid #d9e2ec;
+    border-radius: 8px;
+    padding: 18px;
+    display: grid;
+    gap: 12px;
+}
+
+.calibration-channel > strong {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.calibration-channel .detail-label {
+    margin-bottom: 2px;
+}

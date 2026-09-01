@@ -1,0 +1,7 @@
+POSTGRES_DB=edge_controller
+POSTGRES_USER=edge_controller
+POSTGRES_PASSWORD=${pgPWD}
+
+DATABASE_URL=postgresql+psycopg://edge_controller:C0l0rad0*@controller-postgres:5432/edge_controller
+
+API_PORT=8080

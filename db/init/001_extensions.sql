@@ -1,0 +1,4 @@
+-- edge-controller database initialization
+--
+-- Schema migrations will be introduced once the
+-- initial controller data model is established.
