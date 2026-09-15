@@ -1,0 +1,14 @@
+POSTGRES_DB=edge_controller
+POSTGRES_USER=edge_controller
+POSTGRES_PASSWORD=C0l0rad0*
+
+DATABASE_URL=postgresql+psycopg://edge_controller:C0l0rad0*@controller-postgres:5432/edge_controller
+
+API_PORT=8080
+
+EDGE_SERVICE_SCHEME=http
+EDGE_SERVICE_PORT=8095
+EDGE_SERVICE_PATH=/
+
+EDGE_NODE_HOST_MODE=auto
+EDGE_NODE_DOMAIN=spoocannon.com
