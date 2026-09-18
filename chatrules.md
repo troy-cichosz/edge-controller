@@ -42,7 +42,7 @@ The user controls the ADO/on-prem portion of the workflow:
 
 The existence of a commit in GitHub does not replace these operational verification steps.
 
-`chatgpt.md` is no longer a maintained service/project status or handoff document. Development state must be maintained in `servicestatus.md` and `sprintstatus.md`; durable project state belongs in the project-level documents. Once an existing `chatgpt.md` has been audited and its useful information moved to the appropriate authoritative document, it may be deleted.
+Legacy `chatgpt.md` files are retired and are **not authoritative**. They must not be created, maintained, or used as service/project status or handoff documents. Development state must be maintained in `servicestatus.md` and `sprintstatus.md`; durable project state belongs in the project-level documents defined in Section 5. Any legacy `chatgpt.md` file that remains in a repository is obsolete and should be removed.
 
 ### 1.5 ChatGPT Branch Synchronization
 
@@ -73,7 +73,6 @@ The normal development sequence is:
 15. ChatGPT verifies the resulting `public` baseline before beginning the next increment.
 
 A development increment must not be considered complete merely because code exists, a commit exists, or a build succeeds. Operational completion depends on the verification appropriate to the capability.
-
 
 ## 3. Definition of "All Green"
 
