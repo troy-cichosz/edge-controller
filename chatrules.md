@@ -424,3 +424,27 @@ The objective is to resume and finish work from documented, verified state rathe
 3. **After the user confirms the proposed change, ChatGPT may commit the approved change to `chatgpt`.**
 4. **ADO integration, builds, deployment, runtime verification, and ADO → GitHub mirroring remain user-controlled steps.**
 5. If the user reports a verified result, ChatGPT should use that result as the current operational fact while still distinguishing it from assumptions or unverified repository state.
+
+## 11. New Chat Handoff
+
+When the user indicates that the current development effort will continue in a new chat (for example, **"let's continue in a new chat"**), ChatGPT shall first perform the applicable documentation completion check for the current increment.
+
+Before ending the current chat, ChatGPT shall:
+
+1. Review the current development state against the authoritative repository documentation and the verified results available for the current increment.
+2. Update applicable authoritative documentation when the current increment has established a fact, changed verified status, changed the active handoff, or otherwise requires a documentation update under Section 6.
+3. Respect the existing confirmation requirements in Section 10. Documentation changes that constitute substantive or meaningful changes still require user confirmation before commitment. The new-chat request itself does not override that requirement.
+4. Verify the relevant current `public` repository state when the user has completed and mirrored an increment, in accordance with Sections 1–3.
+5. Provide a concise new-chat handoff containing:
+   - current project and affected-service development state;
+   - the active or next development increment;
+   - completed and verified work relevant to continuation;
+   - applicable architectural invariants and settled decisions that must be preserved;
+   - authoritative repositories/branches and their baseline state;
+   - known blockers, unverified behavior, deferred work, and important limitations;
+   - the files changed during the current handoff effort, with direct repository links when useful; and
+   - a ready-to-paste opening message for the new chat.
+6. Explicitly distinguish implemented from verified, current capability from future scope, and architectural intent from implemented behavior.
+7. Do not create or rely on a `chatgpt.md` handoff document. The handoff is a communication artifact; authoritative project/service state remains in the documents defined by Section 5.
+
+This rule supplements the existing development, documentation, verification, branch, and confirmation rules. It does not replace, weaken, or override them.
