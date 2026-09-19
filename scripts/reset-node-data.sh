@@ -185,6 +185,11 @@ for path in "$DATA_ROOT/recordings" "$DATA_ROOT/logs" "$DATA_ROOT/metadata" "$DA
     fi
 done
 
+# edge-time runs as UID/GID 1000 in the current deployment.
+# Keep the freshly-created shared state directory writable by that service.
+chown 1000:1000 "$DATA_ROOT/state"
+chmod 700 "$DATA_ROOT/state"
+
 echo
 echo "Truncating Docker logs..."
 if [[ -n "$edge_containers" ]]; then
