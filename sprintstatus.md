@@ -20,6 +20,9 @@ Maintain and verify the generic controller/node/service foundation while downstr
 - Host-addressed service communication
 - Initial management GUI foundation
 - Controller management/policy boundary
+- Development-only node data reset utility with safe stop-before-purge behavior; runtime verified on `pi4SSD`
+
+The development reset verification also established that a clean node state can recreate required edge-time state and return the running edge services to normal operation. The reset remains a local development utility; controller/GUI-managed service-specific purge is future work.
 
 ## Current Work
 
@@ -34,6 +37,7 @@ Controller remains available as the generic management plane while active develo
 - Audit logging for evidence-affecting management changes
 - Generic calibration refinement
 - Further generic management/GUI capabilities
+- Controller/GUI-managed data lifecycle and service-specific purge operations
 
 ## Handoff
 
