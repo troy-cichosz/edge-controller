@@ -31,6 +31,34 @@ The controller does not take ownership of service-specific evidence, sensor meas
 
 Future management capabilities may extend this model, but they should preserve the generic node/service architecture.
 
+## Development Data Reset
+
+The repository includes a development-only node reset utility:
+
+~~~text
+scripts/reset-node-data.sh
+~~~
+
+Run on a development node as:
+
+~~~bash
+sudo ./scripts/reset-node-data.sh --all
+~~~
+
+The utility is intentionally limited to disposable development data. It currently:
+
+- Stops running containers whose names begin with `edge-`.
+- Purges the shared `recordings`, `logs`, `metadata`, and `state` data roots under `EDGE_SERVICES_ROOT` (default `/data/services`).
+- Truncates Docker JSON logs for `edge-` containers.
+- Restarts containers that were running before the reset.
+- Preserves service configuration and deployment files.
+
+Use `--dry-run` to inspect the planned operation without changing data. Use `--yes` only when the destructive operation is intentionally being automated.
+
+This is not a production evidence-retention, remote purge, service-state recovery, or factory-reset mechanism. Service-specific purge ownership and controller/GUI lifecycle management remain future capabilities described in `wishlist.md`.
+
+The reset is deliberately fail-safe: if a running edge container cannot be stopped cleanly, the script exits before purging the shared data. During development verification on `pi4SSD`, an `edge-video` container encountered a Docker runtime condition where both `docker stop` and `docker kill` failed to receive an exit event. A host reboot restored normal Docker operation, after which the reset completed successfully. The script was not weakened to bypass that safety boundary.
+
 ## Architecture
 
 The controller provides the management plane for nodes and their services:
