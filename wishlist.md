@@ -23,6 +23,21 @@ Host Devices (currently PIs) will connect to a controller network (host running 
 OBD2 integration to pull data from vehicle like speed, warning/trouble codes, etc. to prove status of vehicle (ie. stopped for headlight out but no trouble/fault code from car, etc.)
 All services that retain data (ie. video, audio. manifests, etc.) should have a controller/gui based "purge" option for testing and data cleanup. Ie. a button on each service to purge all collected data and a master button in the gui to purge all data from all reporting services.
 
+This should grow into a generic platform data-lifecycle capability with service-owned purge definitions and controller-managed orchestration. Desired future scopes include:
+
+- Development reset of one selected node or all nodes to a clean disposable-data state.
+- Service-specific purge of selected data classes without affecting unrelated services.
+- Explicit data classes such as recordings, manifests, derived/live media, logs, metadata, caches, runtime state, and other service-owned disposable data.
+- Preservation of configuration and deployment state during ordinary data purges.
+- Clear separation between ordinary data purge, service-state reset, node data reset, and eventual factory/identity reset.
+- Capability-driven service declarations so the controller does not contain hard-coded knowledge of service-specific filesystem paths.
+- GUI controls for selected-node and fleet-wide purge operations with explicit confirmation and operation results.
+- Controller APIs for querying purgeable data classes and executing approved purge operations.
+- Service-owned purge handlers so each service remains responsible for safely identifying and removing its own data.
+- Auditable management records for purge operations once evidence-affecting administrative audit logging is implemented.
+- Production-safe retention/deletion policy and authorization before real evidence is subject to remote purge.
+- Self-healing/recovery behavior for service state corruption where safe, with explicit integrity boundaries rather than silently rewriting authoritative evidence.
+
 ## Evidence Reconstruction
 
 ```text
