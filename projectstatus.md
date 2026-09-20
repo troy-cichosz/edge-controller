@@ -7,14 +7,13 @@ The current priority sequence is:
 3. Use generic observation to expose `edge-time` operational information.
 4. Establish the `edge-time` authority/time/source model.
 5. Verify time consistency and failure behavior across all current nodes.
-6. Extend evidence-facing temporal integration with `edge-video`.
-7. Establish and validate the common evidence model against `edge-video` and `edge-audio`.
-8. Integrate temporal context into evidence manifests.
-9. Implement controller-managed time configuration.
-10. Implement authority assignment and failover policy.
-11. Add audit logging for evidence-affecting management changes.
-12. Complete the generic calibration workflow.
-13. Extend the same generic management model to other edge services.
+6. Validate and align the common evidence model across `edge-video` and `edge-audio`.
+7. Establish the common evidence model across additional evidence-producing services.
+8. Implement controller-managed time configuration.
+9. Implement authority assignment and failover policy.
+10. Add audit logging for evidence-affecting management changes.
+11. Complete the generic calibration workflow.
+12. Extend the same generic management model to other edge services.
 
 The ordering is intentional.
 
@@ -36,13 +35,15 @@ The distributed `edge-time` architecture established a platform time authority w
 
 The foundation includes source observations, authority relationships, uncertainty/freshness concepts, synchronization state, temporal provenance, cryptographic identity/attestation, and the Capture Time Context used by evidence-producing services.
 
-The time foundation is operational, while evidence-facing refinement and broader failure/authority behavior remain future work.
+The time foundation is operational, while broader failure/authority behavior and future management controls remain future work.
 
 ## Evidence-Facing Temporal Integration
 
-Capture Time Context integration has been completed and verified in `edge-audio`.
+Capture Time Context integration has been completed and verified in `edge-audio` and `edge-video`.
 
-The next evidence-producing integration target is `edge-video`.
+Both services obtain temporal context directly from their local `edge-time` instance and associate that context with their evidence provenance/manifest without making `edge-controller` part of the real-time capture path.
+
+The project is now moving from service-specific temporal integration toward validation and alignment of the common evidence architecture across evidence-producing services.
 
 ## Current Evidence Architecture Transition
 
