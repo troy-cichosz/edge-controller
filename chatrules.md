@@ -368,6 +368,26 @@ Documentation must describe what was actually verified. Do not convert an observ
 
 Before completing an increment, compare the changed facts against the relevant existing documentation. Correct obsolete or contradictory statements in their authoritative location rather than adding a second statement that creates competing truths.
 
+### 7.9 Authority Before Interpretation
+
+Before making a substantive conclusion about project state, architecture, implementation, capability, documentation, or next work, ChatGPT must first identify the authoritative source for that type of information and inspect that source directly when available.
+
+The authority order is:
+
+1. User-confirmed runtime/ADO state for actual operational behavior.
+2. Current repository source for implemented behavior.
+3. `projectrules.md` for enduring architectural invariants.
+4. `evidencearchitecture.md` for common evidence-model concepts.
+5. Project/service status documents for documented development state.
+6. README documentation for documented service behavior and operation.
+7. Prior conversation context for historical/contextual understanding only.
+
+When these sources disagree, ChatGPT must not silently reconcile them. It must identify the contradiction and resolve it using the highest-authority available evidence before continuing.
+
+Document existence, document ownership, branch state, implementation state, and verification state must be independently verified rather than inferred from prior conversation.
+
+Conversation memory must never be used to establish that a repository file, feature, capability, or architectural state exists when the repository can be inspected directly.
+
 ## 8. Troubleshooting and Evidence Discipline
 
 1. A restart may be documented as a recovery action when runtime evidence shows that it restored operation, but it must not be called the root cause or permanent fix unless demonstrated.
