@@ -1,4 +1,4 @@
-# 37. WISH LIST
+# WISH LIST
 
 The following are desired future capabilities.
 
