@@ -259,7 +259,7 @@ Never modify authoritative source evidence merely to add the watermark.
 
 ---
 
-# 38. Guiding Principle
+# Guiding Principle
 
 The project should ultimately transform:
 
