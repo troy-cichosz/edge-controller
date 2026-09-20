@@ -97,7 +97,7 @@ The platform must not imply precision or certainty unsupported by the underlying
 
 ---
 
-# 32. Time Failure and Holdover
+# Time Failure and Holdover
 
 Before powerful controller-managed time policy is enabled, test:
 
