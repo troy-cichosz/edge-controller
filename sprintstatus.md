@@ -28,7 +28,7 @@ The development reset verification also established that a clean node state can 
 
 No controller-specific implementation increment is currently blocking the platform.
 
-Controller remains available as the generic management plane while active development moves through evidence-producing services and the common evidence architecture.
+Controller remains available as the generic management plane while active platform work moves through validation and alignment of the common evidence architecture across evidence-producing services.
 
 ## Deferred
 
@@ -41,4 +41,4 @@ Controller remains available as the generic management plane while active develo
 
 ## Handoff
 
-The next active platform work is evidence-facing temporal integration and common evidence architecture. Controller changes should be introduced only when required by a verified platform or service requirement.
+The next active platform work is validation and alignment of the common evidence architecture across `edge-video` and `edge-audio`, followed by incremental extension to additional evidence-producing services. Controller changes should be introduced only when required by a verified platform or service requirement.
