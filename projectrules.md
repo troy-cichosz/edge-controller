@@ -214,3 +214,13 @@ It does not determine legal admissibility, evidentiary weight, or legal conclusi
 Measurements, detections, classifications, inferred locations, and AI-derived observations must preserve source attribution and uncertainty.
 
 Derived conclusions must not be represented as unquestionable source facts.
+
+## Rule 23 — Ownership Before Standardization
+
+A common platform concept must not cause ownership of its implementation to move from the service that produces or controls the underlying data.
+
+Common contracts define shared semantics and interoperability.
+
+The producing service remains responsible for source-specific acquisition, hardware interaction, evidence creation, and source-specific operational behavior unless an explicit architectural decision establishes otherwise.
+
+Standardize shared meaning before standardizing shared implementation.
