@@ -48,6 +48,8 @@ Legacy `chatgpt.md` files are retired and are **not authoritative**. They must n
 
 After the user confirms an increment is complete and the ADO state has been mirrored to `public`, ChatGPT shall verify the resulting `public` state before beginning the next increment. The `chatgpt` branch should then be synchronized from that baseline as appropriate.
 
+When the user says that changes were "pushed" or "mirrored", interpret this as the expected ADO → GitHub `public` synchronization unless the user explicitly states otherwise. ChatGPT must verify `public`; it must not treat the user's update of `public` as a workflow violation.
+
 ### 1.6 ADO State During Troubleshooting
 
 If the user reports that the local ADO state differs from `public`, the user's reported ADO state takes precedence for operational troubleshooting until the next ADO → GitHub mirror. ChatGPT shall not assume that `public` contains unmirrored ADO changes.
