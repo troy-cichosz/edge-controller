@@ -267,6 +267,91 @@ This is conceptual and is not yet a final database schema.
 
 The final schema should be designed and reviewed before broad implementation.
 
+## 6.1 Minimum Evidence Envelope Contract — Round 1
+
+The first common implementation contract is limited to the concepts already demonstrated by the evidence-producing services. It standardizes the evidence envelope without standardizing modality-specific capture data.
+
+Conceptually:
+
+```
+EvidenceEnvelope
+├── evidence_id
+├── service
+├── service_version
+├── node_id
+├── source
+│   └── source_id             # optional initially
+├── capture
+│   ├── start
+│   ├── end                   # optional
+│   ├── monotonic_start_ns    # optional
+│   └── time_semantics
+├── time_context              # optional
+├── artifacts[]
+│   ├── artifact_id
+│   ├── role                  # authoritative | derived
+│   ├── filename/path
+│   ├── media_type
+│   ├── size
+│   └── sha256
+├── configuration             # optional/reference
+├── derivation                # optional
+└── service_metadata
+```
+
+### Required common semantics
+
+- `evidence_id` identifies the evidence envelope. A service may retain an existing service-specific capture identifier in `service_metadata`.
+- `service`, `service_version`, and `node_id` identify the producer and hosting node.
+- `source.source_id` is optional until a service can provide a stable source identity. Existing source-specific identity must not be replaced or fabricated merely to satisfy the envelope.
+- `capture` describes the service's established capture boundary or interval. It must not imply physical acquisition precision that the source does not establish.
+- `capture.time_semantics` is required whenever a capture time is represented. It identifies what the time represents, such as a service-start reference, capture-boundary context acquisition, source timestamp, or another explicitly established position.
+- `time_context` contains the local `edge-time` Capture Time Context when available. Its presence does not imply exact physical exposure or sample timing unless the producing source separately establishes that position.
+- `artifacts[]` identifies the preserved outputs and their integrity. Every authoritative source artifact must be explicitly marked `authoritative`; derived artifacts must be marked `derived` and retain their relationship to the authoritative source.
+- `configuration` and `derivation` are optional references and must not require a new central configuration or evidence database.
+- `service_metadata` preserves producer-specific fields that are outside the common envelope.
+
+### Ownership and implementation boundary
+
+The envelope is a common interoperability contract, not a shared implementation owner.
+
+The producing evidence service remains responsible for:
+
+- source-specific acquisition;
+- hardware interaction;
+- capture lifecycle;
+- source-specific timing information;
+- artifact creation and finalization;
+- source-specific metadata;
+- modality-specific integrity and processing behavior.
+
+The common envelope must not cause `edge-controller` to mediate capture, timestamp acquisition, evidence creation, or artifact storage.
+
+The common contract standardizes shared meaning and relationships; it does not standardize camera, audio, GNSS, telemetry, or other source-specific implementation details.
+
+### Round 1 timing rule
+
+For interval evidence, `capture.start` and `capture.end` may represent service-established boundaries rather than exact physical acquisition positions.
+
+A temporal context acquired near a capture boundary remains a Capture Time Context association. It must not be promoted to an exact physical exposure, sample, frame, or measurement time unless the producing source provides that timing position.
+
+This distinction is mandatory for the initial video and audio envelope implementations.
+
+### Round 1 implementation rule
+
+The common envelope is implemented independently by each evidence-producing service and associated with its existing service-specific evidence metadata.
+
+Round 1 does not introduce:
+
+- a shared Python/package dependency;
+- a shared evidence database;
+- controller-mediated capture;
+- controller-mediated time acquisition;
+- replacement of existing authoritative artifacts;
+- migration of service-specific ownership into `edge-controller`.
+
+The envelope may be represented as a manifest or sidecar alongside existing service-specific metadata, provided the authoritative source artifact remains unchanged.
+
 ---
 
 # 7. Manifest
@@ -542,9 +627,9 @@ The evidence architecture must remain consistent with `projectrules.md`, particu
 
 # 17. Implementation Status
 
-This document establishes the common conceptual architecture.
+This document establishes the common evidence architecture and the Round 1 minimum evidence envelope contract.
 
-The next implementation work should validate the model incrementally through actual evidence-producing services.
+The Round 1 contract was derived from an implementation audit of the current evidence-producing services. The next implementation work is to add the envelope independently to those services while preserving their existing authoritative artifacts and service-specific metadata.
 
 Current development status is maintained in `sprintstatus.md`.
 
