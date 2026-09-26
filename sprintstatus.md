@@ -1,7 +1,7 @@
-# edge-controller — Sprint Status
+# edge-controller - Sprint Status
 
 **Current sprint:** Platform foundation / maintenance transition  
-**Status:** COMPLETE — maintenance-level foundation  
+**Status:** COMPLETE - maintenance-level foundation  
 **Development phase:** Phase 0 complete
 
 ## Sprint Objective

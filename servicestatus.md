@@ -1,4 +1,4 @@
-# edge-controller — Service Status
+# edge-controller - Service Status
 
 **Purpose:** Current development phase and maturity of the Edge Controller service.  
 **Status:** Active / maintenance-level foundation  
@@ -6,7 +6,7 @@
 
 ## Current Phase
 
-**Phase 0 — Platform Foundation: COMPLETE / MAINTENANCE**
+**Phase 0 - Platform Foundation: COMPLETE / MAINTENANCE**
 
 The generic controller foundation is operational and is no longer the primary development focus.
 

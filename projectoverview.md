@@ -1,4 +1,4 @@
-# AI Legal Edge Platform — Project Overview
+# AI Legal Edge Platform - Project Overview
 
 **Document:** `projectoverview.md`  
 **Purpose:** High-level platform map, architecture, development maturity, service roles, and summarized direction  
@@ -86,13 +86,13 @@ Vehicle
 
 ## Core Concepts
 
-**Evidence** — An original or preserved data artifact produced by an evidence-producing service. Authoritative evidence is immutable after finalization.
+**Evidence** - An original or preserved data artifact produced by an evidence-producing service. Authoritative evidence is immutable after finalization.
 
-**Observation** — Measured, detected, or reported information associated with a source and temporal context. An observation may reference evidence.
+**Observation** - Measured, detected, or reported information associated with a source and temporal context. An observation may reference evidence.
 
-**Event** — A bounded context on the canonical timeline that groups related evidence, observations, and system activity.
+**Event** - A bounded context on the canonical timeline that groups related evidence, observations, and system activity.
 
-**Timeline** — The temporal representation used to correlate heterogeneous sources while preserving time-source provenance and uncertainty.
+**Timeline** - The temporal representation used to correlate heterogeneous sources while preserving time-source provenance and uncertainty.
 
 Detailed definitions, relationships, and the common evidence model are maintained in `evidencearchitecture.md`.
 
@@ -235,7 +235,7 @@ The repository branches and verification workflow are defined in `chatrules.md`.
 
 The project is organized around the evidence lifecycle rather than independent repository completion.
 
-## Phase 0 — Platform Foundation
+## Phase 0 - Platform Foundation
 
 **Status: Complete / Maintenance**
 
@@ -243,7 +243,7 @@ The generic controller/node/service foundation is operational, including dynamic
 
 Detailed milestone history belongs in `projectstatus.md`.
 
-## Phase 1 — Authoritative Time Foundation
+## Phase 1 - Authoritative Time Foundation
 
 **Status: Core operational; evidence-facing refinement remains**
 
@@ -253,7 +253,7 @@ Remaining time-related work includes refinement and broader failure/authority be
 
 Detailed time implementation belongs in `edge-time`; development history belongs in `projectstatus.md`; current work belongs in `sprintstatus.md`.
 
-## Phase 2 — Common Evidence Architecture
+## Phase 2 - Common Evidence Architecture
 
 **Status: Current strategic priority**
 

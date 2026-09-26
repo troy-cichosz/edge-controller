@@ -140,13 +140,13 @@ estimated uncertainty
 The project-level development hierarchy is:
 
 ```
-projectstatus.md   → highest-level project development state/history
+projectstatus.md   -> highest-level project development state/history
         |
-        +-- project sprintstatus.md → current platform sprint lifecycle
+        +-- project sprintstatus.md -> current platform sprint lifecycle
         |
-        +-- service servicestatus.md → current service phase/maturity
+        +-- service servicestatus.md -> current service phase/maturity
         |
-        +-- service sprintstatus.md → current service sprint lifecycle
+        +-- service sprintstatus.md -> current service sprint lifecycle
 ```
 
 Service-specific phase and maturity belong in each service's `servicestatus.md`. Active service development belongs in that service's `sprintstatus.md`. The project `projectstatus.md` records only development state and history significant at the platform level.

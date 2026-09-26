@@ -39,20 +39,20 @@ These values describe the current lab deployment only. They must not be treated 
 
 ```text
 spoo-lin
-├── edge-controller
-└── edge-time authority
++-- edge-controller
++-- edge-time authority
 
 pi4SSD
-├── edge-audio
-├── edge-gps
-├── edge-time
-└── edge-video
++-- edge-audio
++-- edge-gps
++-- edge-time
++-- edge-video
 
 pi4nVME
-├── edge-audio
-├── edge-gps
-├── edge-time
-└── edge-video
++-- edge-audio
++-- edge-gps
++-- edge-time
++-- edge-video
 ```
 
 The service list is a current deployment snapshot, not a hard-coded architecture rule.
@@ -71,8 +71,8 @@ The service list is a current deployment snapshot, not a hard-coded architecture
 
 | Role | Current environment-specific value |
 |---|---|
-| Primary AD/DC | `spoo-ds1` — `10.10.11.1` |
-| Secondary AD/DC | `spoo-ad2` — `10.10.11.2` |
+| Primary AD/DC | `spoo-ds1` - `10.10.11.1` |
+| Secondary AD/DC | `spoo-ad2` - `10.10.11.2` |
 | Pi-hole management instances | `10.10.11.251`, `10.10.11.252` |
 | Pi-hole VLAN 76 addresses | `10.10.76.1`, `10.10.76.2` |
 | Guest network | VLAN 666 / `172.16.66.1` |

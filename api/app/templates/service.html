@@ -147,7 +147,7 @@
                     {{ resource.path }}
 
                     {% if not resource.enabled %}
-                        — Disabled
+                        - Disabled
                     {% endif %}
                 </span>
 
@@ -210,7 +210,7 @@
             {% if service_status and service_status.data.state.gps_time %}
                 {{ service_status.data.state.gps_time }}
             {% else %}
-                —
+                -
             {% endif %}
         </strong>
     </div>
@@ -232,7 +232,7 @@
             {% if service_status %}
                 {{ service_status.data.state.fix.satellites }}
             {% else %}
-                —
+                -
             {% endif %}
         </strong>
     </div>
@@ -243,7 +243,7 @@
             {% if service_status %}
                 {{ service_status.data.state.fix.hdop }}
             {% else %}
-                —
+                -
             {% endif %}
         </strong>
     </div>
@@ -254,7 +254,7 @@
             {% if service_status %}
                 {{ service_status.data.state.fix.vdop }}
             {% else %}
-                —
+                -
             {% endif %}
         </strong>
     </div>
@@ -265,7 +265,7 @@
             {% if service_status %}
                 {{ service_status.data.state.fix.pdop }}
             {% else %}
-                —
+                -
             {% endif %}
         </strong>
     </div>
@@ -290,7 +290,7 @@
             {% if service_status %}
                 {{ service_status.data.state.receiver.model }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -301,7 +301,7 @@
             {% if service_status %}
                 {{ service_status.data.state.receiver.protocol }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -312,7 +312,7 @@
             {% if service_status and service_status.data.state.fix.latitude is not none %}
                 {{ service_status.data.state.fix.latitude }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -323,7 +323,7 @@
             {% if service_status and service_status.data.state.fix.longitude is not none %}
                 {{ service_status.data.state.fix.longitude }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -334,7 +334,7 @@
             {% if service_status and service_status.data.state.fix.altitude_m is not none %}
                 {{ service_status.data.state.fix.altitude_m }} m
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -345,7 +345,7 @@
             {% if service_status and service_status.data.state.fix.speed_mps is not none %}
                 {{ service_status.data.state.fix.speed_mps }} m/s
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -354,9 +354,9 @@
         <span class="detail-label">Course</span>
         <span id="gps-course">
             {% if service_status and service_status.data.state.fix.course_deg is not none %}
-                {{ service_status.data.state.fix.course_deg }}°
+                {{ service_status.data.state.fix.course_deg }}&deg;
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -381,7 +381,7 @@
             {% if service_status %}
                 {{ service_status.data.diagnostics.messages_received }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -392,7 +392,7 @@
             {% if service_status %}
                 {{ service_status.data.diagnostics.valid_checksums }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -403,7 +403,7 @@
             {% if service_status %}
                 {{ service_status.data.diagnostics.invalid_checksums }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -414,7 +414,7 @@
             {% if service_status %}
                 {{ service_status.data.diagnostics.last_message_type }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -426,7 +426,7 @@
                   and service_status.data.diagnostics.last_message_received_at %}
                 {{ service_status.data.diagnostics.last_message_received_at }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -438,7 +438,7 @@
                   and service_status.data.diagnostics.seconds_since_last_nmea is not none %}
                 {{ service_status.data.diagnostics.seconds_since_last_nmea }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -484,7 +484,7 @@
             {% if service_status %}
                 {{ service_status.data.diagnostics.quality }}
             {% else %}
-                —
+                -
             {% endif %}
         </span>
     </div>
@@ -677,7 +677,7 @@ function updateServiceStatus(status) {
 
     setText(
         "gps-time",
-        state.gps_time || "—"
+        state.gps_time || "-"
     );
 
     setText(
@@ -687,33 +687,33 @@ function updateServiceStatus(status) {
 
     setText(
         "gps-satellites",
-        fix.satellites ?? "—"
+        fix.satellites ?? "-"
     );
 
     setText(
         "gps-hdop",
-        fix.hdop ?? "—"
+        fix.hdop ?? "-"
     );
 
     setText(
         "gps-vdop",
-        fix.vdop ?? "—"
+        fix.vdop ?? "-"
     );
 
     setText(
         "gps-pdop",
-        fix.pdop ?? "—"
+        fix.pdop ?? "-"
     );
 
 
     setText(
         "gps-model",
-        receiver.model || "—"
+        receiver.model || "-"
     );
 
     setText(
         "gps-protocol",
-        receiver.protocol || "—"
+        receiver.protocol || "-"
     );
 
 
@@ -731,7 +731,7 @@ function updateServiceStatus(status) {
         "gps-altitude",
         fix.altitude_m === null ||
         fix.altitude_m === undefined
-            ? "—"
+            ? "-"
             : `${fix.altitude_m} m`
     );
 
@@ -739,7 +739,7 @@ function updateServiceStatus(status) {
         "gps-speed",
         fix.speed_mps === null ||
         fix.speed_mps === undefined
-            ? "—"
+            ? "-"
             : `${fix.speed_mps} m/s`
     );
 
@@ -747,39 +747,39 @@ function updateServiceStatus(status) {
         "gps-course",
         fix.course_deg === null ||
         fix.course_deg === undefined
-            ? "—"
-            : `${fix.course_deg}°`
+            ? "-"
+            : `${fix.course_deg}&deg;`
     );
 
 
     setText(
         "gps-messages",
-        diagnostics.messages_received ?? "—"
+        diagnostics.messages_received ?? "-"
     );
 
     setText(
         "gps-valid-checksums",
-        diagnostics.valid_checksums ?? "—"
+        diagnostics.valid_checksums ?? "-"
     );
 
     setText(
         "gps-invalid-checksums",
-        diagnostics.invalid_checksums ?? "—"
+        diagnostics.invalid_checksums ?? "-"
     );
 
     setText(
         "gps-last-message",
-        diagnostics.last_message_type || "—"
+        diagnostics.last_message_type || "-"
     );
 
     setText(
         "gps-last-nmea",
-        diagnostics.last_message_received_at || "—"
+        diagnostics.last_message_received_at || "-"
     );
 
     setText(
         "gps-seconds-since-nmea",
-        diagnostics.seconds_since_last_nmea ?? "—"
+        diagnostics.seconds_since_last_nmea ?? "-"
     );
 
     setText(
@@ -805,7 +805,7 @@ function updateServiceStatus(status) {
 
     setText(
         "gps-quality",
-        diagnostics.quality ?? "—"
+        diagnostics.quality ?? "-"
     );
 
 
@@ -843,7 +843,7 @@ function formatValue(value) {
         value === undefined
     ) {
 
-        return "—";
+        return "-";
 
     }
 
@@ -1226,13 +1226,13 @@ if (
 
 if (value === -Infinity) {
 
-    return "-∞";
+    return "-Infinity";
 
 }
 
 if (value === Infinity) {
 
-    return "∞";
+    return "Infinity";
 
 }
 

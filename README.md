@@ -86,14 +86,14 @@ The generic model is:
 
 ~~~text
 Node
- └── Service
-      ├── identity
-      ├── version
-      ├── status
-      ├── capabilities
-      ├── observation resources
-      ├── endpoint
-      └── configuration
+ +-- Service
+      +-- identity
+      +-- version
+      +-- status
+      +-- capabilities
+      +-- observation resources
+      +-- endpoint
+      +-- configuration
 ~~~
 
 The controller stores management metadata and state. The service remains responsible for implementing and interpreting its own service-specific behavior.

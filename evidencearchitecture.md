@@ -1,4 +1,4 @@
-# AI Legal Edge Platform — Evidence Architecture
+# AI Legal Edge Platform - Evidence Architecture
 
 **Document:** `evidencearchitecture.md`  
 **Purpose:** Common platform model for evidence, observations, events, timelines, temporal context, provenance, integrity, derivatives, and reconstruction  
@@ -267,7 +267,7 @@ This is conceptual and is not yet a final database schema.
 
 The final schema should be designed and reviewed before broad implementation.
 
-## 6.1 Minimum Evidence Envelope Contract — Round 1
+## 6.1 Minimum Evidence Envelope Contract - Round 1
 
 The first common implementation contract is limited to the concepts already demonstrated by the evidence-producing services. It standardizes the evidence envelope without standardizing modality-specific capture data.
 
@@ -275,28 +275,28 @@ Conceptually:
 
 ```
 EvidenceEnvelope
-├── evidence_id
-├── service
-├── service_version
-├── node_id
-├── source
-│   └── source_id             # optional initially
-├── capture
-│   ├── start
-│   ├── end                   # optional
-│   ├── monotonic_start_ns    # optional
-│   └── time_semantics
-├── time_context              # optional
-├── artifacts[]
-│   ├── artifact_id
-│   ├── role                  # authoritative | derived
-│   ├── filename/path
-│   ├── media_type
-│   ├── size
-│   └── sha256
-├── configuration             # optional/reference
-├── derivation                # optional
-└── service_metadata
++-- evidence_id
++-- service
++-- service_version
++-- node_id
++-- source
+|   +-- source_id             # optional initially
++-- capture
+|   +-- start
+|   +-- end                   # optional
+|   +-- monotonic_start_ns    # optional
+|   +-- time_semantics
++-- time_context              # optional
++-- artifacts[]
+|   +-- artifact_id
+|   +-- role                  # authoritative | derived
+|   +-- filename/path
+|   +-- media_type
+|   +-- size
+|   +-- sha256
++-- configuration             # optional/reference
++-- derivation                # optional
++-- service_metadata
 ```
 
 ### Required common semantics
@@ -441,13 +441,13 @@ Evidence has a lifecycle distinct from later analysis:
 
 ```text
 capture
-   ↓
+   |
 finalize
-   ↓
+   |
 authoritative immutable source
-   ↓
+   |
 verify / copy / analyze
-   ↓
+   |
 derivatives and observations
 ```
 
